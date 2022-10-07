@@ -9,7 +9,7 @@ import enum
 import os
 
 MOTDS = [
-    "You found me, ha!", "I thought Overwatch was porn.", "https://github.com/jibstack64",
+    "You found me, ha!", "'Amazing web design' - Rose, 2022", "https://github.com/jibstack64",
     "LETS FUCKING GO!!!!", "rm -rf /", "Let your parents watch.", "Science department best department.",
     "Weybetter 2.0."
 ]
