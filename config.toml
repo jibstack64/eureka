@@ -1,0 +1,18 @@
+
+# static path
+static="./static"
+
+# production
+[prd]
+port=80
+[prd.logging]
+to_console=true
+to_dump=true
+
+# development
+[dev]
+port=1234
+[dev.logging]
+to_console=true
+to_dump=false
+
