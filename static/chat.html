@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="chat.css" media="screen"/>
+    <script src="chat.js"></script>
+    <title>Eureka - Chat</title>
+</head>
+<body onload="refresh()">
+    <div id="wrapper">
+        <div id="menu">
+            <p class="welcome">Welcome<b></b></p>
+            <p class="logout"><a id="exit" href="/">Exit Chat</a></p>
+        </div>
+        <div id="chatbox"></div>
+        <input name="usermsg" type="text" id="usermsg" />
+        <input name="submitmsg" type="submit" id="submitmsg" value="Send" onclick="send_message()" />
+        <input name="refreshmsg" type="submit" id="refreshmsg" value="Refresh" onclick="refresh()" />
+    </div>
+</body>
+</html>

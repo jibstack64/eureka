@@ -8,8 +8,8 @@ This project is **still in development**, so dont expect any official site to be
 - [x] Create flask server
 - [x] Setup logging system
 - [x] Create home page
-- [ ] Create messaging page
-- [ ] Backend messaging system
+- [x] Create messaging page
+- [x] Backend messaging system
 - [ ] Add games
 - [ ] Create and setup unblocker proxy (seperate Go server)
 
