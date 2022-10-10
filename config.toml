@@ -2,6 +2,9 @@
 # static path
 static="./static"
 
+# ngrok authtoken
+ngrok_auth=""
+
 # production
 [prd]
 port=80
