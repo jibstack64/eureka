@@ -90,6 +90,8 @@ def chat_messages() -> None:
         # if it contains or is a url, disallow
         if parser.contains_url(content):
             return flask.make_response("Message content contains URL.", 400)
+        elif content == "":
+            return flask.make_response("No message.", 400)
         # add message to list
         globals()["messages"].append(content)
         return flask.make_response("Success, your message has been created.", 200)
