@@ -44,9 +44,14 @@ DAILY = text.motd()
 if CONFIG.port == 80:
     text.log("Unfortunately, ngrok does not function on port 80 at the moment.", text.LogState.Warning)
     text.terminate("This is mostly on UNIX, however. If you are using this code on Windows, try commenting out this if statement.")
-NGROK = ngrok.host(CONFIG.ngrok_auth, CONFIG.port)
+if CONFIG.ngrok_use:
+    if CONFIG.ngrok_auth == "":
+        text.log("No ngrok authentication token provided, ignoring.", text.LogState.Error)
+        CONFIG._data["ngrok"]["use"] = False
+    else:
+        NGROK = ngrok.host(CONFIG.ngrok_auth, CONFIG.port)
+        text.log(f"External ngrok url -> '{NGROK}'", text.LogState.Success, special=[(NGROK, text.Clr.GREEN)])
 text.log(f"Up and running on '{CONFIG.host}:{CONFIG.port}'.", text.LogState.Success)
-text.log(f"External ngrok url -> '{NGROK}'", text.LogState.Success, special=[(NGROK, text.Clr.GREEN)])
 text.log(f"  -> In {'production' if not DEV else 'development'} mode.", special=[("production", text.Clr.LIGHTMAGENTA_EX), ("development", text.Clr.LIGHTCYAN_EX)])
 text.log(f"  -> MOTD: '{DAILY}'", special=[(DAILY, text.Clr.LIGHTYELLOW_EX)])
 
@@ -118,4 +123,5 @@ def games_html():
 # run server
 if __name__ == "__main__":
     server.run(CONFIG.host, CONFIG.port)
-    ngrok.close(NGROK)
+    if CONFIG.ngrok_use:
+        ngrok.close(NGROK)

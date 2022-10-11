@@ -3,7 +3,9 @@
 static="./static"
 
 # ngrok authtoken
-ngrok_auth=""
+[ngrok]
+use=false
+auth=""
 
 # production
 [prd]

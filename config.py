@@ -20,7 +20,11 @@ class Config:
 
     @property
     def ngrok_auth(self) -> str:
-        return self._data["ngrok_auth"]
+        return self._data["ngrok"]["auth"]
+
+    @property
+    def ngrok_use(self) -> bool:
+        return self._data["ngrok"]["use"]
 
     @property
     def static(self) -> str:
