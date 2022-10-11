@@ -17,7 +17,6 @@ This project is **still in development**, so dont expect any official site to be
 - [x] Backend messaging system
 - [ ] Add games
 - [ ] Create and setup unblocker proxy (seperate Go server)
-
-- [x] Ngrok utilities.
+- [x] Ngrok utilities
 
 #### Current URL: *N/A*.
