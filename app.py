@@ -7,6 +7,7 @@ import typing
 import config
 import parser
 import flask
+import ngrok
 import text
 import sys
 import os
@@ -29,17 +30,27 @@ if DEV:
             os.system("rmdir /s __pycache__")
 
 # load static configuration
-CONFIG = config.load()
+CONFIG = config.load(DEV)
 
 # create server
 server = flask.Flask(__name__, static_url_path="/", static_folder=CONFIG.static)
 server.secret_key = SECRET_KEY
 # disable logging
 server.logger.disabled = True
-log = logging.getLogger("werkzeug").disabled = True
+logging.getLogger("werkzeug").disabled = True
 flask.cli.show_server_banner = lambda *args : None
 
 DAILY = text.motd()
+if CONFIG.port == 80:
+    text.log("Unfortunately, ngrok does not function on port 80 at the moment.", text.LogState.Warning)
+    text.terminate("This is mostly on UNIX, however. If you are using this code on Windows, try commenting out this if statement.")
+if CONFIG.ngrok_use:
+    if CONFIG.ngrok_auth == "":
+        text.log("No ngrok authentication token provided, ignoring.", text.LogState.Error)
+        CONFIG._data["ngrok"]["use"] = False
+    else:
+        NGROK = ngrok.host(CONFIG.ngrok_auth, CONFIG.port)
+        text.log(f"External ngrok url -> '{NGROK}'", text.LogState.Success, special=[(NGROK, text.Clr.GREEN)])
 text.log(f"Up and running on '{CONFIG.host}:{CONFIG.port}'.", text.LogState.Success)
 text.log(f"  -> In {'production' if not DEV else 'development'} mode.", special=[("production", text.Clr.LIGHTMAGENTA_EX), ("development", text.Clr.LIGHTCYAN_EX)])
 text.log(f"  -> MOTD: '{DAILY}'", special=[(DAILY, text.Clr.LIGHTYELLOW_EX)])
@@ -114,3 +125,5 @@ def games_html():
 # run server
 if __name__ == "__main__":
     server.run(CONFIG.host, CONFIG.port)
+    if CONFIG.ngrok_use:
+        ngrok.close(NGROK)

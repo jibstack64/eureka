@@ -19,6 +19,14 @@ class Config:
         return "0.0.0.0"
 
     @property
+    def ngrok_auth(self) -> str:
+        return self._data["ngrok"]["auth"]
+
+    @property
+    def ngrok_use(self) -> bool:
+        return self._data["ngrok"]["use"]
+
+    @property
     def static(self) -> str:
         return self._data["static"]
 
